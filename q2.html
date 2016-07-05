@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Services Assignment Q2
+	</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script type="text/javascript">
+		var mainapp=angular.module("MyApp",[]);
+		mainapp.controller("MyCtrl",function($scope,g,force){
+				$scope.mass=0;
+    	        $scope.person = function() 
+    	        {
+               		$scope.answer = force.person($scope.mass);
+            	}
+		});
+		mainapp.constant("g","9.8");
+			mainapp.factory('Maths', function() {
+            var factory = {};
+            factory.product = function(p, q) {
+               return p*q;
+            }
+            return factory;
+         });
+		mainapp.service('force', function(Maths,g){
+            this.person = function(a) {
+               return Maths.product(g,a);
+            }
+         });
+	</script>
+</head>
+<body ng-app = "MyApp" ng-controller = "MyCtrl">
+<h2>Constant Example</h2><br><br>
+<p>Enter a mass to find out gravity : <input type="number" ng-model = "mass" ></p>
+<button ng-click = "person()"> Acceleration Gravity</button>
+<p>Mg will be : {{answer}} </p>
+
+</body>
+</html>
